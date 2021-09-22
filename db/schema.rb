@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_12_042331) do
+ActiveRecord::Schema.define(version: 2021_09_22_054323) do
+
+  create_table "order_items", charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "products_id"
+    t.bigint "orders_id"
+    t.index ["orders_id"], name: "index_order_items_on_orders_id"
+    t.index ["products_id"], name: "index_order_items_on_products_id"
+  end
+
+  create_table "orders", charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "users_id"
+    t.index ["users_id"], name: "index_orders_on_users_id"
+  end
 
   create_table "products", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -20,6 +36,33 @@ ActiveRecord::Schema.define(version: 2021_09_12_042331) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "reviews_id"
+    t.bigint "users_id"
+    t.index ["reviews_id"], name: "index_products_on_reviews_id"
+    t.index ["users_id"], name: "index_products_on_users_id"
   end
 
+  create_table "reviews", charset: "utf8mb4", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.decimal "rating", precision: 10, scale: 2
+    t.decimal "price", precision: 10, scale: 2
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "order_items", "orders", column: "orders_id"
+  add_foreign_key "order_items", "products", column: "products_id"
+  add_foreign_key "orders", "users", column: "users_id"
+  add_foreign_key "products", "reviews", column: "reviews_id"
+  add_foreign_key "products", "users", column: "users_id"
 end

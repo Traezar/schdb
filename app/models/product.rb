@@ -1,8 +1,11 @@
 class Product < ApplicationRecord
 
-def good_reviews do
+
+
+
+def good_reviews 
 end
 
-def bad_reviews do
+def bad_reviews 
 end
 end
