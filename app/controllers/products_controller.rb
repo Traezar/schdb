@@ -30,11 +30,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
-   @product.name = allowed_params[:name]
-   @product.category = allowed_params[:category]
-   @product.summary = allowed_params[:summary]
-   @product.price =  allowed_params[:price]
-   @product.quantity =  allowed_params[:quantity]
+   @product.update(allowed_params)
    @product.save
   end
 

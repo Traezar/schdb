@@ -15,54 +15,54 @@ ActiveRecord::Schema.define(version: 2021_09_22_054323) do
   create_table "order_items", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "products_id"
-    t.bigint "orders_id"
-    t.index ["orders_id"], name: "index_order_items_on_orders_id"
-    t.index ["products_id"], name: "index_order_items_on_products_id"
+    t.bigint "product_id"
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "users_id"
-    t.index ["users_id"], name: "index_orders_on_users_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "products", charset: "utf8mb4", force: :cascade do |t|
-    t.string "name"
-    t.string "category"
-    t.text "summary"
+    t.string "name", null: false
+    t.string "category", null: false
+    t.text "summary", null: false
     t.decimal "price", precision: 10, scale: 2
-    t.integer "quantity"
+    t.integer "quantity", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "reviews_id"
-    t.bigint "users_id"
-    t.index ["reviews_id"], name: "index_products_on_reviews_id"
-    t.index ["users_id"], name: "index_products_on_users_id"
+    t.bigint "review_id"
+    t.bigint "user_id"
+    t.index ["review_id"], name: "index_products_on_review_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "reviews", charset: "utf8mb4", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
+    t.string "title", null: false
+    t.text "content", null: false
     t.decimal "rating", precision: 10, scale: 2
     t.decimal "price", precision: 10, scale: 2
-    t.integer "quantity"
+    t.integer "quantity", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password"
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "order_items", "orders", column: "orders_id"
-  add_foreign_key "order_items", "products", column: "products_id"
-  add_foreign_key "orders", "users", column: "users_id"
-  add_foreign_key "products", "reviews", column: "reviews_id"
-  add_foreign_key "products", "users", column: "users_id"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "users"
+  add_foreign_key "products", "reviews"
+  add_foreign_key "products", "users"
 end
