@@ -36,10 +36,6 @@ ActiveRecord::Schema.define(version: 2021_09_22_054323) do
     t.integer "quantity", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "review_id"
-    t.bigint "user_id"
-    t.index ["review_id"], name: "index_products_on_review_id"
-    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "reviews", charset: "utf8mb4", force: :cascade do |t|
@@ -50,6 +46,10 @@ ActiveRecord::Schema.define(version: 2021_09_22_054323) do
     t.integer "quantity", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "product_id"
+    t.bigint "user_id"
+    t.index ["product_id"], name: "index_reviews_on_product_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
@@ -63,6 +63,6 @@ ActiveRecord::Schema.define(version: 2021_09_22_054323) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
-  add_foreign_key "products", "reviews"
-  add_foreign_key "products", "users"
+  add_foreign_key "reviews", "products"
+  add_foreign_key "reviews", "users"
 end

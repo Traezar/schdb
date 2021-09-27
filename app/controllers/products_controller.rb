@@ -17,17 +17,6 @@ class ProductsController < ApplicationController
     render json: @product , serializer: ProductSerializer
   end
 
-  # GET /products/new
-  def new
-    @product = Product.new
-    @product.name = allowed_params[:name]
-    @product.category = allowed_params[:category]
-    @product.summary = allowed_params[:summary]
-    @product.price =  allowed_params[:price]
-    @product.quantity =  allowed_params[:quantity]
-    @product.save
-  end
-
   # GET /products/1/edit
   def edit
    @product.update(allowed_params)
